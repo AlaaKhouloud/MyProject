@@ -1,0 +1,14 @@
+.main{
+    background-color:white;
+    min-height:500px;
+}
+.secondDiv{
+    overflow: hidden;
+}
+.positionNewBtn{
+    float: right;
+    clear: both;
+}
+.positionCard{
+    position:relative;
+}

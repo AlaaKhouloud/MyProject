@@ -1,0 +1,42 @@
+<template>
+  <div style="height:25px !important; margin:20px; margin-bottom:150;">
+    <lightning-card icon-name="custom:custom49" data-id={movieitem.Id} class="slds-text-align_center">
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+              <span><h1> <b>{movieitem.Category__c} :</b> {movieitem.Name__c}</h1></span>
+            </div>
+            <div class="slds-col">
+              <span>
+                <div class="cover">
+                    <template if:true={movieitem.Image__c}>
+                    <lightning-formatted-rich-text  value={movieitem.Image__c} style="max-width: 100%;max-height: 100%;"></lightning-formatted-rich-text>
+                    </template>
+                    <template if:false={movieitem.Image__c}>
+                        <img src="https://app-customer-1797-dev-ed--c.visualforce.com/resource/1630690020000/imagemock" style="min-width: 95%;max-width: 80%;"/>
+                    </template>
+                </div>
+              </span>
+            </div>
+            <div class="slds-col">
+              <span>
+                <p class="slds-p-horizontal_small">{movieitem.Description__c}</p>
+                <p>Released the : {movieitem.ReleaseDate__c}
+                    <lightning-button-icon
+                    alternative-text="Preview"
+                    class="slds-float_right"
+                    icon-class="slds-m-around_medium"
+                    icon-name="utility:preview"
+                    variant="bare"
+                    onclick={handlePreview}
+                    >
+                    </lightning-button-icon>
+                </p>
+              </span>
+            </div>
+          </div>
+    </lightning-card>
+    <template if:true={openModal}>
+        <c-movie-preview-lwc onclose={handleModalClosed} open={openModal} recordid={recordId}></c-movie-preview-lwc>
+    </template>
+  </div>
+</template>

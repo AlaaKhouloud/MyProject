@@ -1,0 +1,58 @@
+<template>
+  <div class="slds-p-around_x-large main">  
+    <div class="slds-p-top_small slds-p-bottom_medium slds-m-right_large secondDiv">
+        <lightning-button variant="brand" label="New Movie" title="New Movie" onclick={handleCreateMovie} 
+        class="slds-p-left_x-small positionNewBtn"></lightning-button>
+    </div>
+    <div class="slds-p-around_medium lgc-bg slds-align_absolute-center slds-size_1-of-2">
+	    <lightning-input type="search" placeholder="Search..." onkeyup={handleSearchMovies}></lightning-input>
+    </div>
+    
+    <template if:true={showResults}>
+      <div class="slds-card__header">
+        <div class="slds-form--compound">
+          <div>
+            <div class="page-data-container">
+              <!--lightning-button-icon
+                alternative-text="Previous"
+                icon-class="slds-m-around_medium"
+                icon-name="utility:chevronleft"
+                variant="bare"
+              >
+              </lightning-button-icon>
+              <lightning-button-icon
+                alternative-text="Next"
+                class="slds-float_right"
+                icon-class="slds-m-around_medium"
+                icon-name="utility:chevronright"
+                variant="bare"
+              >
+              </lightning-button-icon-->
+            </div>
+            <div class="slds-grid slds-scrollable" style="height:500px; overflow:auto !important;">
+                <template for:each={movies} for:item="m">
+                      <div key={m.Id} class="slds-col slds-size_3-of-12">
+                         <span class="slds-p-around_medium"><c-movies-results-lwc movieitem={m} onclose={handleModalClosed}></c-movies-results-lwc></span>
+                      </div>
+                </template>
+            </div>
+          </div>
+          <template if:true={showSpinner}>
+            <div class="slds-spinner_container">
+              <div class="slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <!-- modal start -->        
+  <template if:true={openModal}>
+     <c-new-movie-modal-l-w-c open={openModal}></c-new-movie-modal-l-w-c>
+  </template>
+  <!-- modal end -->
+</template>
